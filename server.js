@@ -7,7 +7,7 @@ import cors from "cors";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
-const API_TOKEN = process.env.API_TOKEN || "dev-token-change-me";
+const API_TOKEN = process.env.API_TOKEN || "dev-token";
 
 const store = new Map(); // userId -> [{id,title,message,ts}]
 
@@ -40,7 +40,7 @@ app.get("/api/poll", auth, (req, res) => {
   const { userId } = req.query;
   if (!userId) return res.status(400).json({ error: "userId required" });
   const arr = store.get(userId) || [];
-  store.set(userId, []); // clear after fetch (fire-and-forget)
+  store.set(userId, []);
   res.json({ items: arr });
 });
 
